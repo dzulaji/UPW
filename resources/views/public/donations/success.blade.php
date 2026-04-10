@@ -109,33 +109,63 @@
                         </div>
 
                         {{-- 2. Area QRIS --}}
-                        <div class="text-center border rounded p-3 mb-4 bg-light">
-
-                            {{-- LOGIC GANTI JUDUL --}}
-                            <p class="mb-2 fw-bold">
+                        <div class="text-center border rounded p-3 mb-4 bg-light shadow-sm">
+                            <p class="mb-2 fw-bold text-dark">
                                 @if ($donation->program_id == 1)
-                                    Scan QRIS Wakaf Uang (Dana Abadi):
+                                    Scan QRIS untuk melakukan Wakaf :
                                 @else
                                     Scan QRIS Donasi Program:
                                 @endif
                             </p>
 
-                            {{-- LOGIC GANTI GAMBAR --}}
                             <img src="{{ $donation->program_id == 1 ? asset('frontend/img/up-wakaf-unand.jpeg') : asset('frontend/img/wakaf-unand(bank-nagari).jpeg') }}"
-                                alt="QRIS Code" {{-- w-100: Lebar 100% dari container --}} {{-- h-auto: Tinggi otomatis biar proporsional --}}
-                                class="img-fluid rounded border bg-white p-2 w-100 h-auto" {{-- style="max-width: 400px;" agar di layar besar dia gak terlalu raksasa --}}
-                                style="max-width: 400px; object-fit: contain;">
+                                alt="QRIS Code" 
+                                class="img-fluid rounded border bg-white p-2 w-100 h-auto mb-3" 
+                                style="max-width: 350px; object-fit: contain;">
 
-                            {{-- LOGIC GANTI KETERANGAN BAWAH (Opsional) --}}
-                            <p class="small text-muted mt-2 mb-0">
-                                @if ($donation->program_id == 1)
-                                    Rekening Khusus Pengelolaan Wakaf Uang
-                                @else
-                                    Rekening Penampungan Donasi Program
-                                @endif
-                            </p>
-
+                            {{-- NOTIFIKASI LIMIT QRIS --}}
+                            <div class="alert alert-warning py-2 px-3 mb-0 d-inline-block rounded-pill" style="font-size: 0.85rem;">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                <strong>Info:</strong> Maksimal pembayaran via QRIS adalah <strong>Rp10.000.000</strong> per transaksi.
+                            </div>
                         </div>
+
+                        {{-- 2.5 Informasi Rekening Bank (Jika di atas limit atau prefer transfer manual) --}}
+                        @if($donation->program->rekening)
+                        <div class="mb-4">
+                            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-bank me-2 text-primary"></i>Alternatif Transfer Bank:</h6>
+                            <div class="card border-0 bg-light p-3 rounded-4">
+                                <div class="d-flex align-items-center mb-2">
+                                    <!-- @if($donation->program->rekening->logo)
+                                        <img src="{{ asset('frontend/img/' . $donation->program->rekening->logo) }}" 
+                                            alt="Logo Bank" height="25" class="me-2">
+                                    @endif -->
+                                    <span class="fw-bold text-dark">{{ $donation->program->rekening->nama_bank }}</span>
+                                </div>
+                                
+                                <div class="bg-white p-3 rounded-3 border">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="text-muted small">Nomor Rekening:</span>
+                                        <button class="btn btn-sm py-0 text-primary fw-bold" 
+                                                onclick="copyOrderId('{{ $donation->program->rekening->nomor_rekening }}')">
+                                            Salin
+                                        </button>
+                                    </div>
+                                    <div class="fs-5 fw-bold text-dark font-monospace">
+                                        {{ $donation->program->rekening->nomor_rekening }}
+                                    </div>
+                                    <hr class="my-2">
+                                    <div class="text-muted small">Atas Nama:</div>
+                                    <div class="fw-bold text-dark">
+                                        {{ $donation->program->rekening->atas_nama }}
+                                    </div>
+                                </div>
+                                <small class="text-muted mt-2 fst-italic" style="font-size: 0.75rem;">
+                                    *Gunakan <strong>Order ID</strong> ({{ $donation->order_id }}) sebagai berita transfer bila memungkinkan.
+                                </small>
+                            </div>
+                        </div>
+                        @endif
 
                         {{-- 3. Instruksi --}}
                         <div class="alert alert-info border-0 d-flex align-items-start" role="alert">

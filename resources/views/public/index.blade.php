@@ -357,7 +357,7 @@
                                 style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
                                 <i class="bi bi-piggy-bank fs-3"></i>
                             </div>
-                            <h3 class="display-6 fw-bolder mb-3 text-white">Wakaf Uang & Dana Abadi</h3>
+                            <h3 class="display-6 fw-bolder mb-3 text-white">Wakaf Uang</h3>
                             <p class="fs-6 opacity-75 mb-4 pe-md-5">Wakaf berupa uang tunai yang pokoknya dikelola
                                 secara abadi. Hasilnya murni untuk kemaslahatan umat dan beasiswa.</p>
                             <div>

@@ -80,6 +80,10 @@
                         <div style="display: inline-block; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                             <img src="{{ $message->embed($pathQris) }}" alt="QRIS Code" style="width: 200px; height: auto; display: block;">
                         </div>
+                        {{-- INFO LIMIT QRIS --}}
+                        <div style="margin-top: 15px; padding: 10px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 6px; color: #856404; font-size: 13px;">
+                            <strong>⚠️ Penting:</strong> Maksimal pembayaran via QRIS adalah <strong>Rp 10.000.000</strong> per transaksi.
+                        </div>
                     </div>
                 @endif
 
